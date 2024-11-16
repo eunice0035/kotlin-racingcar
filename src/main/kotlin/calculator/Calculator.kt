@@ -31,8 +31,12 @@ class Calculator {
     }
 
     fun isOperator(input: String): Boolean {
-        val operators = listOf("+", "-", "*", "/")
-        return operators.any { it == input }
+        return try {
+            OPERATOR.fromSymbol(input)
+            true
+        } catch (e: IllegalArgumentException) {
+            false
+        }
     }
 
     fun splitEquation(equation: String): List<String> {
@@ -40,35 +44,57 @@ class Calculator {
         return regex.findAll(equation).map { it.value }.toList()
     }
 
-    fun getResult(equation: String?): Float {
-        if (equation.isNullOrEmpty()) throw IllegalArgumentException()
+    fun checkIsValidEquation(equation: String) {
+        require(equation.isNotEmpty()) {
+            "Equation is Empty."
+        }
+    }
 
+    fun getResult(equation: String): Float {
         val itemList = splitEquation(equation)
+        println(itemList)
         if (itemList.size < 3) throw Exception("Invalid equation")
 
-        var firstNumber: Float = itemList[0].toFloat()
-        var secondNumber: Float
+        var result: Float = itemList[0].toFloat()
+        var operand: Float
         var operator = ""
 
         for (i in 1 until itemList.size) {
+            println(i)
+            println(itemList[i])
+            println(isOperator(itemList[i]))
             if (isOperator(itemList[i])) {
                 operator = itemList[i]
                 continue
             }
-            secondNumber = itemList[i].toFloat()
-            firstNumber =
-                when (operator) {
-                    "+" -> plusOperation(firstNumber, secondNumber)
-                    "-" -> minusOperation(firstNumber, secondNumber)
-                    "*" -> multipleOperation(firstNumber, secondNumber)
-                    "/" -> divideOperation(firstNumber, secondNumber)
-                    else -> throw Exception("Invalid operation")
-                }
+            println(i)
+            operand = itemList[i].toFloat()
+            result = when (OPERATOR.fromSymbol(operator)) {
+                OPERATOR.PLUS -> plusOperation(result, operand)
+                OPERATOR.MINUS -> minusOperation(result, operand)
+                OPERATOR.MULTIPLE -> multipleOperation(result, operand)
+                OPERATOR.DIVIDE -> divideOperation(result, operand)
+            }
+
         }
-        return firstNumber
+        return result
     }
 
     companion object {
-        const val OPERATION_REGEX = "\\d+|[+\\-*/]"
+        private const val OPERATION_REGEX = "\\d+|[+\\-*/]"
+
+        enum class OPERATOR(val symbol: String) {
+            PLUS("+"),
+            MINUS("-"),
+            MULTIPLE("*"),
+            DIVIDE("/");
+
+            companion object {
+                fun fromSymbol(symbol: String): OPERATOR {
+                    return entries.find { it.symbol == symbol }
+                        ?: throw IllegalArgumentException("Unknown Operation")
+                }
+            }
+        }
     }
 }

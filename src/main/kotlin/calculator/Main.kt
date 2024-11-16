@@ -4,8 +4,10 @@ fun main() {
     val customCalculator = Calculator()
 
     println("Type equation")
-    val equation = readlnOrNull()
+    val equation = readln()
 
+    customCalculator.checkIsValidEquation(equation)
     val result = customCalculator.getResult(equation).toString()
     println("result: $result")
+
 }

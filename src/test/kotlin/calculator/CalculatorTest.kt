@@ -2,6 +2,7 @@ package calculator
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CalculatorTest {
     private val testCalculator = Calculator()
@@ -43,6 +44,49 @@ class CalculatorTest {
         val exception = 0.5f
 
         val actual = testCalculator.divideOperation(first, second)
+        assertThat(actual).isEqualTo(exception)
+    }
+
+    @Test
+    fun `throw exception - divided by 0`() {
+        val first = 1f
+        val second = 0f
+
+        assertThrows<Exception> {
+            testCalculator.divideOperation(first, second)
+        }
+    }
+
+    @Test
+    fun `throw exception - equation is empty`() {
+        val mockEquation = ""
+        assertThrows<IllegalArgumentException> {
+            testCalculator.checkIsValidEquation(mockEquation)
+        }
+    }
+
+    @Test
+    fun `throw exception - not convert to operator`() {
+        val mockOperator = "."
+        assertThrows<IllegalArgumentException> {
+            Calculator.Companion.OPERATOR.valueOf(mockOperator)
+        }
+    }
+
+    @Test
+    fun `return right enum class`() {
+        val mockOperator = "+"
+        val exception = Calculator.Companion.OPERATOR.PLUS
+        val actual = Calculator.Companion.OPERATOR.fromSymbol(mockOperator)
+
+        assertThat(actual).isEqualTo(exception)
+    }
+
+    @Test
+    fun `test getResult - print right answer`() {
+        val equation = "3+5"
+        val exception = 8f
+        val actual = testCalculator.getResult(equation)
         assertThat(actual).isEqualTo(exception)
     }
 }
