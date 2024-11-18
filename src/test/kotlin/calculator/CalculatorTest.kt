@@ -13,7 +13,7 @@ class CalculatorTest {
         val second = 1f
         val expected = 1f
 
-        val actual = testCalculator.plusOperation(first, second)
+        val actual = Calculator.Companion.OPERATOR.PLUS.calculate(first, second)
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -23,7 +23,7 @@ class CalculatorTest {
         val second = 2f
         val expected = -1f
 
-        val actual = testCalculator.minusOperation(first, second)
+        val actual = Calculator.Companion.OPERATOR.MINUS.calculate(first, second)
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -33,7 +33,7 @@ class CalculatorTest {
         val second = 6f
         val expected = 30f
 
-        val actual = testCalculator.multipleOperation(first, second)
+        val actual = Calculator.Companion.OPERATOR.MULTIPLE.calculate(first, second)
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -43,7 +43,7 @@ class CalculatorTest {
         val second = 2f
         val exception = 0.5f
 
-        val actual = testCalculator.divideOperation(first, second)
+        val actual = Calculator.Companion.OPERATOR.DIVIDE.calculate(first, second)
         assertThat(actual).isEqualTo(exception)
     }
 
@@ -53,7 +53,7 @@ class CalculatorTest {
         val second = 0f
 
         assertThrows<Exception> {
-            testCalculator.divideOperation(first, second)
+            Calculator.Companion.OPERATOR.DIVIDE.calculate(first, second)
         }
     }
 
