@@ -1,18 +1,20 @@
 package ui
 
-import domain.Game
+import racinggame.domain.Game
 
 fun main() {
-
     val input = InputView()
-    val game = Game()
     val resultView = ResultView()
 
-    game.makingCar(input.carNumber, input.gameTurn)
+    val game =
+        Game(
+            carNumber = input.carNumber,
+            initMoving = input.gameTurn,
+        )
 
     println("\n실행 결과")
-    for (i in 0 until input.gameTurn) {
-        game.movingAllCar()
-        resultView.printResult(i + 1, game.carList)
+    for (i in 1..game.totalGameTurn) {
+        game.startTurn()
+        resultView.printResult(i, game.cars)
     }
 }

@@ -9,5 +9,4 @@ fun main() {
     customCalculator.checkIsValidEquation(equation)
     val result = customCalculator.getResult(equation).toString()
     println("result: $result")
-
 }

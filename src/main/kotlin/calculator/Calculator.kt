@@ -31,15 +31,16 @@ class Calculator {
 
         if (numbers.size < 2 || operators.isEmpty()) throw Exception("Invalid equation")
 
-        val finalResult = numbers.drop(1).foldIndexed(numbers.first()) { index, result, operand ->
-            isOperator(operators[index])
-            when (OPERATOR.fromSymbol(operators[index])) {
-                OPERATOR.PLUS -> OPERATOR.PLUS.calculate(result, operand)
-                OPERATOR.MINUS -> OPERATOR.MINUS.calculate(result, operand)
-                OPERATOR.MULTIPLE -> OPERATOR.MULTIPLE.calculate(result, operand)
-                OPERATOR.DIVIDE -> OPERATOR.DIVIDE.calculate(result, operand)
+        val finalResult =
+            numbers.drop(1).foldIndexed(numbers.first()) { index, result, operand ->
+                isOperator(operators[index])
+                when (OPERATOR.fromSymbol(operators[index])) {
+                    OPERATOR.PLUS -> OPERATOR.PLUS.calculate(result, operand)
+                    OPERATOR.MINUS -> OPERATOR.MINUS.calculate(result, operand)
+                    OPERATOR.MULTIPLE -> OPERATOR.MULTIPLE.calculate(result, operand)
+                    OPERATOR.DIVIDE -> OPERATOR.DIVIDE.calculate(result, operand)
+                }
             }
-        }
 
         return finalResult
     }
@@ -47,7 +48,6 @@ class Calculator {
     companion object {
         private const val OPERATOR_REGEX = "[+\\-*/]"
         private const val NUMBER_REGEX = "\\d+"
-
 
         enum class OPERATOR(val symbol: String) {
             PLUS("+") {
@@ -76,9 +76,12 @@ class Calculator {
                     if (number2.toInt() == 0) throw Exception("Not divided by 0")
                     return number1 / number2
                 }
-            };
+            }, ;
 
-            abstract fun calculate(number1:Float, number2: Float): Float
+            abstract fun calculate(
+                number1: Float,
+                number2: Float,
+            ): Float
 
             companion object {
                 fun fromSymbol(symbol: String): OPERATOR {
