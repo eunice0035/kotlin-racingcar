@@ -1,5 +1,6 @@
 package racinggame.domain
 
+
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -33,4 +34,4 @@ class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
         private const val START_RANGE = 0
         private const val END_RANGE = 9
     }
-}
+    

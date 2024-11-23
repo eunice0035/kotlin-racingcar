@@ -1,5 +1,6 @@
 package racinggame.domain
 
+
 data class RacingCar(
     private var position: Int = 0,
 ) {
@@ -14,21 +15,20 @@ data class RacingCar(
     private fun checkIsMove(number: Int): Boolean {
         return number >= THRESHOLD
     }
-
+    
     fun getCurrentPosition(): Int {
         return position
     }
 
-    private fun updatePosition() {
-        position += 1
+    fun updatePosition() {
+      position += 1
     }
 
     companion object {
         private const val THRESHOLD = 4
-
+      
         enum class ResultCode {
             SUCCESS,
-            FAIL;
-        }
+            FAIL
     }
 }
