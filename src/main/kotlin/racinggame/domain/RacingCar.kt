@@ -15,20 +15,21 @@ data class RacingCar(
     private fun checkIsMove(number: Int): Boolean {
         return number >= THRESHOLD
     }
-    
+
     fun getCurrentPosition(): Int {
         return position
     }
 
     fun updatePosition() {
-      position += 1
+        position += 1
     }
 
     companion object {
         private const val THRESHOLD = 4
-      
+
         enum class ResultCode {
             SUCCESS,
             FAIL
+        }
     }
 }
