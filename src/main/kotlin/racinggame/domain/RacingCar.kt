@@ -6,16 +6,20 @@ import kotlin.random.nextInt
 data class RacingCar(
     private var position: Int = 0,
 ) {
-    fun checkIsMove(number: Int): Boolean {
-        return number >= 4
-    }
-
-    fun moveCar() {
+    fun moveCar(): ResultCode {
         val randomNumber = generateRandomNumber()
-        if (checkIsMove(randomNumber)) updatePosition()
+        if (checkIsMove(randomNumber)) {
+            updatePosition()
+            return ResultCode.SUCCESS
+        }
+        return ResultCode.FAIL
     }
 
-    fun generateRandomNumber(): Int {
+    private fun checkIsMove(number: Int): Boolean {
+        return number >= THRESHOLD
+    }
+
+    private fun generateRandomNumber(): Int {
         return Random.nextInt(START_RANGE..END_RANGE)
     }
 
@@ -23,12 +27,18 @@ data class RacingCar(
         return position
     }
 
-    fun updatePosition() {
+    private fun updatePosition() {
         position += 1
     }
 
     companion object {
         private const val START_RANGE = 0
         private const val END_RANGE = 9
+        private const val THRESHOLD = 4
+
+        enum class ResultCode {
+            SUCCESS,
+            FAIL
+        }
     }
 }

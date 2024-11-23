@@ -1,4 +1,4 @@
-package ui
+package racinggame.ui
 
 class InputView {
     val carNumber: Int by lazy {

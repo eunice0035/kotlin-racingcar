@@ -1,13 +1,10 @@
-package ui
 
-import racinggame.domain.Game
 
 fun main() {
     val input = InputView()
     val resultView = ResultView()
 
-    val game =
-        Game(
+    val game = Game(
             carNumber = input.carNumber,
             initMoving = input.gameTurn,
         )

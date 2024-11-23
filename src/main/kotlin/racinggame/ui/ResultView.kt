@@ -1,4 +1,4 @@
-package ui
+package racinggame.ui
 
 import racinggame.domain.RacingCar
 
