@@ -3,28 +3,30 @@ package racinggame.domain
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class Game(carNumber: Int, initMoving: Int) {
-    val totalGameTurn = initMoving
-    val cars: List<RacingCar> by lazy {
-        makingCars(carNumber)
-    }
 
-    private fun makingCars(number: Int): List<RacingCar> {
-        val initCars = mutableListOf<RacingCar>()
-        repeat(number) {
-            initCars.add(RacingCar())
-        }
-        return initCars
-    }
-
+class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
+    var gameTurn = totalGameTurn
     private fun generateRandomNumber(): Int {
         return Random.nextInt(START_RANGE..END_RANGE)
     }
 
-    fun startTurn() {
-        cars.forEach { car ->
-            car.moveCar(generateRandomNumber())
+    fun startTurn(): Boolean {
+        if (checkIsGameStart()) {
+            updateGameTurn()
+            cars.forEach { car ->
+                car.moveCar(generateRandomNumber())
+            }
+            return true
         }
+        return false
+    }
+
+    private fun checkIsGameStart(): Boolean {
+        return gameTurn > 0
+    }
+
+    private fun updateGameTurn() {
+        gameTurn--
     }
 
     companion object {
