@@ -10,7 +10,10 @@ fun main() {
     val resultView = ResultView()
 
     val gameParameterMaker = GameParameter()
-    val game = Game(gameParameterMaker.createCars(input.carNumber), input.gameTurn)
+
+    val carNames = gameParameterMaker.getCarName(input.carNames)
+    val cars = gameParameterMaker.createCars(carNames)
+    val game = Game(cars, input.gameTurn)
 
     println("\n실행 결과")
     var turnNumber = 1
