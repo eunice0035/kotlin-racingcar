@@ -2,6 +2,7 @@ package racinggame.domain
 
 
 data class RacingCar(
+    val carName: String,
     private var position: Int = 0,
 ) {
     fun moveCar(randomNumber: Int): ResultCode {
