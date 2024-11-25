@@ -6,12 +6,10 @@ import org.junit.jupiter.api.Test
 class GameTest {
     @Test
     fun `check making car`() {
-        val carNumber = 3
-        val car = RacingCar(0)
-        val cars = listOf(car, car, car)
+        val carName = "first,sec,third"
         val moving = 5
-        val game = Game(cars, moving)
+        val game = Game.createGame(carName, moving)
 
-        assertThat(game.cars.size).isEqualTo(carNumber)
+        assertThat(game.cars.size).isEqualTo(3)
     }
 }

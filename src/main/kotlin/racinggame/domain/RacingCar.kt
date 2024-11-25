@@ -5,6 +5,24 @@ data class RacingCar(
     val carName: String,
     private var position: Int = 0,
 ) {
+
+    init {
+        checkIsValidCarName()
+        checkCarNameLength()
+    }
+
+    fun checkIsValidCarName(){
+        require(carName.isNotEmpty()) {
+            "Car name must not be Empty"
+        }
+    }
+
+    fun checkCarNameLength() {
+        require(carName.length <=5) {
+            "The length of car name must not be longer than 5"
+        }
+    }
+
     fun moveCar(randomNumber: Int): ResultCode {
         if (checkIsMove(randomNumber)) {
             updatePosition()

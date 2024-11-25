@@ -8,7 +8,6 @@ fun main() {
     val input = InputView()
     val resultView = ResultView()
 
-
     val game = Game.createGame(input.carNames, input.gameTurn)
     println("\n실행 결과")
 
