@@ -30,24 +30,6 @@ class RacingCarTest {
     }
 
     @Test
-    fun `check movable- success`() {
-        val number = 4
-        val expected = ResultCode.SUCCESS
-
-        val result = racingCar.moveCar(number)
-        assertThat(result).isEqualTo(expected)
-    }
-
-    @Test
-    fun `check movable - fail`() {
-        val number = 0
-        val expected = ResultCode.FAIL
-
-        val result = racingCar.moveCar(number)
-        assertThat(result).isEqualTo(expected)
-    }
-
-    @Test
     fun `check carName - valid car name`() {
         val car = RacingCar("Speed")
         assertEquals("Speed", car.carName)

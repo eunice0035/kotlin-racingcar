@@ -23,12 +23,10 @@ data class RacingCar(
         }
     }
 
-    fun moveCar(randomNumber: Int): ResultCode {
+    fun moveCar(randomNumber: Int) {
         if (checkIsMove(randomNumber)) {
             updatePosition()
-            return ResultCode.SUCCESS
         }
-        return ResultCode.FAIL
     }
 
     private fun checkIsMove(number: Int): Boolean {
@@ -45,10 +43,5 @@ data class RacingCar(
 
     companion object {
         private const val THRESHOLD = 4
-
-        enum class ResultCode {
-            SUCCESS,
-            FAIL
-        }
     }
 }
