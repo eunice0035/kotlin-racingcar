@@ -21,7 +21,7 @@ data class RacingCar(
         return position
     }
 
-    fun updatePosition() {
+    private fun updatePosition() {
         position += 1
     }
 

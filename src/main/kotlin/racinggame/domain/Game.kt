@@ -4,20 +4,18 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
-    var gameTurn = totalGameTurn
+    private var gameTurn = totalGameTurn
     private fun generateRandomNumber(): Int {
         return Random.nextInt(START_RANGE..END_RANGE)
     }
 
-    fun startTurn(): Boolean {
+    fun startTurn() {
         if (checkIsGameStart()) {
             updateGameTurn()
             cars.forEach { car ->
                 car.moveCar(generateRandomNumber())
             }
-            return true
         }
-        return false
     }
 
     private fun checkIsGameStart(): Boolean {
@@ -31,6 +29,12 @@ class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
     companion object {
         private const val START_RANGE = 0
         private const val END_RANGE = 9
+        private const val DELIMITER = ","
+
+        fun createGame(carName: String, initMoving: Int): Game {
+            val cars = carName.split(DELIMITER).map { RacingCar(it, 0) }
+            return Game(cars, initMoving)
+        }
     }
 }
     
