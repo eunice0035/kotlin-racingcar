@@ -1,5 +1,6 @@
 package racinggame
 
+import racinggame.domain.FindWinners
 import racinggame.domain.Game
 import racinggame.ui.InputView
 import racinggame.ui.ResultView
@@ -15,4 +16,6 @@ fun main() {
         game.startTurn()
         resultView.printResult(i, game.cars)
     }
+
+    resultView.printWinners(FindWinners.findWinners(game.cars))
 }
