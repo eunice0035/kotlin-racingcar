@@ -1,34 +1,45 @@
 package racinggame.domain
 
-import kotlin.random.Random
-import kotlin.random.nextInt
-
 data class RacingCar(
+    val carName: String,
     private var position: Int = 0,
 ) {
-    fun checkIsMove(number: Int): Boolean {
-        return number >= 4
+    init {
+        checkIsValidCarName()
+        checkCarNameLength()
     }
 
-    fun moveCar() {
-        val randomNumber = generateRandomNumber()
-        if (checkIsMove(randomNumber)) updatePosition()
+    fun checkIsValidCarName() {
+        require(carName.isNotEmpty()) {
+            "Car name must not be Empty"
+        }
     }
 
-    fun generateRandomNumber(): Int {
-        return Random.nextInt(START_RANGE..END_RANGE)
+    fun checkCarNameLength() {
+        require(carName.length <= 5) {
+            "The length of car name must not be longer than 5"
+        }
+    }
+
+    fun moveCar(randomNumber: Int) {
+        if (checkIsMove(randomNumber)) {
+            updatePosition()
+        }
+    }
+
+    private fun checkIsMove(number: Int): Boolean {
+        return number >= THRESHOLD
     }
 
     fun getCurrentPosition(): Int {
         return position
     }
 
-    fun updatePosition() {
+    private fun updatePosition() {
         position += 1
     }
 
     companion object {
-        private const val START_RANGE = 0
-        private const val END_RANGE = 9
+        private const val THRESHOLD = 4
     }
 }

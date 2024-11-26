@@ -1,22 +1,43 @@
 package racinggame.domain
 
-class Game(carNumber: Int, initMoving: Int) {
-    val totalGameTurn = initMoving
-    val cars: List<RacingCar> by lazy {
-        makingCars(carNumber)
-    }
+import kotlin.random.Random
+import kotlin.random.nextInt
 
-    private fun makingCars(number: Int): List<RacingCar> {
-        val initCars = mutableListOf<RacingCar>()
-        repeat(number) {
-            initCars.add(RacingCar())
-        }
-        return initCars
+class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
+    private var gameTurn = totalGameTurn
+
+    private fun generateRandomNumber(): Int {
+        return Random.nextInt(START_RANGE..END_RANGE)
     }
 
     fun startTurn() {
-        cars.forEach { car ->
-            car.moveCar()
+        if (checkIsGameStart()) {
+            updateGameTurn()
+            cars.forEach { car ->
+                car.moveCar(generateRandomNumber())
+            }
+        }
+    }
+
+    private fun checkIsGameStart(): Boolean {
+        return gameTurn > 0
+    }
+
+    private fun updateGameTurn() {
+        gameTurn--
+    }
+
+    companion object {
+        private const val START_RANGE = 0
+        private const val END_RANGE = 9
+        private const val DELIMITER = ","
+
+        fun createGame(
+            carName: String,
+            initMoving: Int,
+        ): Game {
+            val cars = carName.split(DELIMITER).map { RacingCar(it, 0) }
+            return Game(cars, initMoving)
         }
     }
 }
