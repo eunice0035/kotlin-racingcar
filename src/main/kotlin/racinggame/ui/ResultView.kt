@@ -17,10 +17,11 @@ class ResultView {
     fun printWinners(winners: List<RacingCar>) {
         val winnersNames = StringBuilder()
         winners.forEachIndexed { index, car ->
-            if (index == winners.lastIndex)
+            if (index == winners.lastIndex) {
                 winnersNames.append(car.carName)
-            else
+            } else {
                 winnersNames.append("${car.carName}, ")
+            }
         }
         println("${winnersNames}가 최종 우승했습니다.")
     }

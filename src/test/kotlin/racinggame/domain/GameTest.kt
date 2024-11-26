@@ -1,6 +1,5 @@
 package racinggame.domain
 
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

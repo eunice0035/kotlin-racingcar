@@ -1,24 +1,22 @@
 package racinggame.domain
 
-
 data class RacingCar(
     val carName: String,
     private var position: Int = 0,
 ) {
-
     init {
         checkIsValidCarName()
         checkCarNameLength()
     }
 
-    fun checkIsValidCarName(){
+    fun checkIsValidCarName() {
         require(carName.isNotEmpty()) {
             "Car name must not be Empty"
         }
     }
 
     fun checkCarNameLength() {
-        require(carName.length <=5) {
+        require(carName.length <= 5) {
             "The length of car name must not be longer than 5"
         }
     }
