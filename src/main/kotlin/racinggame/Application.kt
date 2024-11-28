@@ -9,12 +9,11 @@ fun main() {
     val resultView = ResultView()
 
     val game = Game.createGame(input.carNames, input.gameTurn)
-    println("\n실행 결과")
-
-    for (i in 1..game.totalGameTurn) {
-        game.startTurn()
-        resultView.printResult(i, game.cars)
+    game.onTurnCompleted = { currentTurn, cars ->
+        if(currentTurn == 1) resultView.printInitialMessage()
+        resultView.printResultOfTurn(currentTurn, cars)
     }
 
+    game.startGame()
     resultView.printWinners(game.getResult())
 }

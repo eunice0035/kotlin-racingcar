@@ -6,6 +6,14 @@ class Game(
     private val generator: RandomNumberGenerator,
 ) {
     private var gameTurn = totalGameTurn
+    var onTurnCompleted: ((Int, List<RacingCar>) -> Unit)? = null
+
+    fun startGame() {
+        while (totalGameTurn > 0) {
+            startTurn()
+            onTurnCompleted?.invoke(gameTurn, cars)
+        }
+    }
 
     private fun startTurn() {
         if (checkIsGameStart()) {
