@@ -1,13 +1,17 @@
 package racinggame.domain
 
-class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
+class Game(
+    val cars: List<RacingCar>,
+    val totalGameTurn: Int,
+    private val generator: RandomNumberGenerator,
+) {
     private var gameTurn = totalGameTurn
 
-    fun startTurn() {
+    private fun startTurn() {
         if (checkIsGameStart()) {
             updateGameTurn()
             cars.forEach { car ->
-                car.moveCar(RandomNumberGenerator.generate())
+                car.moveCar(generator.generate())
             }
         }
     }
@@ -32,7 +36,7 @@ class Game(val cars: List<RacingCar>, val totalGameTurn: Int) {
             initMoving: Int,
         ): Game {
             val cars = carName.split(DELIMITER).map { RacingCar(it, 0) }
-            return Game(cars, initMoving)
+            return Game(cars, initMoving, RandomNumberGenerator)
         }
     }
 }
