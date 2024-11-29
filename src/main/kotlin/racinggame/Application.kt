@@ -1,6 +1,7 @@
 package racinggame
 
 import racinggame.domain.Game
+import racinggame.domain.RacingCar
 import racinggame.ui.InputView
 import racinggame.ui.ResultView
 
@@ -9,11 +10,11 @@ fun main() {
     val resultView = ResultView()
 
     val game = Game.createGame(input.carNames, input.gameTurn)
-    game.onTurnCompleted = { currentTurn, cars ->
+    val onTurnCompletedCallback: ((Int, List<RacingCar>) -> Unit) = { currentTurn, cars ->
         if (currentTurn == 1) resultView.printInitialMessage()
         resultView.printResultOfTurn(currentTurn, cars)
     }
 
-    game.startGame()
+    game.startGame(onTurnCompletedCallback)
     resultView.printWinners(game.getResult())
 }

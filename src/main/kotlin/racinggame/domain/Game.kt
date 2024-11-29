@@ -2,16 +2,15 @@ package racinggame.domain
 
 class Game(
     val cars: List<RacingCar>,
-    val totalGameTurn: Int,
+    private val totalGameTurn: Int,
     private val generator: RandomNumberStrategy,
 ) {
     private var gameTurn = totalGameTurn
-    lateinit var onTurnCompleted: ((Int, List<RacingCar>) -> Unit)
 
-    fun startGame() {
+    fun startGame(turnCompleteCallback: ((Int, List<RacingCar>) -> Unit)) {
         while (gameTurn > 0) {
             startTurn()
-            onTurnCompleted.invoke(totalGameTurn - gameTurn, cars)
+            turnCompleteCallback(totalGameTurn - gameTurn, cars)
         }
     }
 

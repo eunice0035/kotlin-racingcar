@@ -24,8 +24,7 @@ class GameTest {
         val mockCallback: (Int, List<RacingCar>) -> Unit = { turn, cars ->
             callbackNum++
         }
-        game.onTurnCompleted = mockCallback
-        game.startGame()
+        game.startGame(mockCallback)
 
         callbackNum shouldBe moving
     }
@@ -43,11 +42,10 @@ class GameTest {
                 }
             }
 
-        val mockCallback: (Int, List<RacingCar>) -> Unit = { turn, cars -> }
         val game = Game.createGame(carName, moving, movingGenerator)
-        game.onTurnCompleted = mockCallback
+        val mockCallback: (Int, List<RacingCar>) -> Unit = { turn, cars -> }
 
-        game.startGame()
+        game.startGame(mockCallback)
         val result = game.getResult()
 
         result.size shouldBe 1
