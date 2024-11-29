@@ -29,4 +29,29 @@ class GameTest {
 
         callbackNum shouldBe moving
     }
+
+    @Test
+    fun checkGetResultTest() {
+        val carName = "first,sec,third"
+        val moving = 2
+        val movingGenerator =
+            object : RandomNumberStrategy {
+                private var callCount = 0
+
+                override fun generate(): Int {
+                    return if (callCount++ % 3 == 0) 5 else 0
+                }
+            }
+
+        val mockCallback: (Int, List<RacingCar>) -> Unit = { turn, cars -> }
+        val game = Game.createGame(carName, moving, movingGenerator)
+        game.onTurnCompleted = mockCallback
+
+        game.startGame()
+        val result = game.getResult()
+
+        result.size shouldBe 1
+        result[0].carName shouldBe "first"
+        result[0].getCurrentPosition() shouldBe 2
+    }
 }

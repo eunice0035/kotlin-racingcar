@@ -3,15 +3,15 @@ package racinggame.domain
 class Game(
     val cars: List<RacingCar>,
     val totalGameTurn: Int,
-    private val generator: RandomNumberGenerator,
+    private val generator: RandomNumberStrategy,
 ) {
     private var gameTurn = totalGameTurn
-    var onTurnCompleted: ((Int, List<RacingCar>) -> Unit)? = null
+    lateinit var onTurnCompleted: ((Int, List<RacingCar>) -> Unit)
 
     fun startGame() {
-        while (totalGameTurn > 0) {
+        while (gameTurn > 0) {
             startTurn()
-            onTurnCompleted?.invoke(gameTurn, cars)
+            onTurnCompleted.invoke(totalGameTurn - gameTurn, cars)
         }
     }
 
@@ -42,9 +42,10 @@ class Game(
         fun createGame(
             carName: String,
             initMoving: Int,
+            generator: RandomNumberStrategy = RandomNumberGenerator,
         ): Game {
             val cars = carName.split(DELIMITER).map { RacingCar(it, 0) }
-            return Game(cars, initMoving, RandomNumberGenerator)
+            return Game(cars, initMoving, generator)
         }
     }
 }
