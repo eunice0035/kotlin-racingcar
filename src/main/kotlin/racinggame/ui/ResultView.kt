@@ -3,7 +3,6 @@ package racinggame.ui
 import racinggame.domain.RacingCar
 
 class ResultView {
-
     fun printInitialMessage() {
         println("실행결과\n")
     }

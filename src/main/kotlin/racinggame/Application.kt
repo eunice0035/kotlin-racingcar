@@ -10,7 +10,7 @@ fun main() {
 
     val game = Game.createGame(input.carNames, input.gameTurn)
     game.onTurnCompleted = { currentTurn, cars ->
-        if(currentTurn == 1) resultView.printInitialMessage()
+        if (currentTurn == 1) resultView.printInitialMessage()
         resultView.printResultOfTurn(currentTurn, cars)
     }
 
